@@ -1,4 +1,4 @@
-test
-deploy
-build
-
+test/*
+deploy/*
+build/*
+.DS_Store

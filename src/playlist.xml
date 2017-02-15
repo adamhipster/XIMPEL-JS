@@ -18,10 +18,14 @@
         	<video x="0px" y="0px" width="600px" height="900px">
         		<source file="test" extensions="mp4" types="video/mp4" />
         	</video> -->
-        	<image src="test.jpg" duration="2" width="600px"  />
-            <youtube id="AI0RTvlm0hw" startTime="300" duration="10" height="800px" width="800px" />
+        	<!--<image src="test.jpg" duration="2" width="600px"  />-->
+            <terminal text="TESTING" duration="60" />
+            <!--<message text="abcd" duration="5" />-->
+            <!--<image_new src="test.jpg" duration="2" width="600px"  />-->
+            
+            <!--<youtube id="AI0RTvlm0hw" startTime="300" duration="10" height="800px" width="800px" />
             <youtube id="4_UVnsG7COM" startTime="300" duration="10" />
-            <youtube id="J_x-dIA7oeE" startTime="300" duration="10" />
+            <youtube id="J_x-dIA7oeE" startTime="300" duration="10" />-->
 
         </media>
     </subject>
