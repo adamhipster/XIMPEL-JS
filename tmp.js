@@ -43,40 +43,39 @@ ximpel.mediaTypeDefinitions.Terminal = function( customEl, customAttr, $el, play
     this.$terminalTestText =  $('<span class="terminalText"></span>');
     this.$terminalTestText.html( this.customAttributes.text );
 
-    this.$terminalWindow = $('<div class="terminalWrapper"> \
-                                <form class="terminalForm">      \
-                                &gt; <input class="terminalInput">\
-                                </form> \
-                                <div class="terminalDiv"></div> \
-                                </div>');
+    this.$terminalWindow = $('<div class="terminalWrapper"></div>')
+        .load("commandline_plugin/terminal.html", function(){
+            //add new stylesheet to the document
+            var link = document.createElement( "link" );
+            link.href =  "commandline_plugin/custom.css";
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.media = "screen,print";
+            document.getElementsByTagName( "head" )[0].appendChild( link );
 
-    //cannot do this: this.$terminalWindow = $('<div class="terminalWrapper"></div>').load("commandline_plugin/terminal.html");
+            //load event listener
+            var input = this.$terminalWindow.find('.terminalInput');
+            this.$terminalWindow.find('.terminalForm').submit(function(event){
+                console.log('logging event')
+                console.log(event)
+                event.preventDefault();
+                socket.send(input.val());
 
-    this.$sidePanel = $('<div class="sidePanel"></div>').load("commandline_plugin/sidepanel.html", function(){
-        //add new stylesheet to the document
-        var link = document.createElement( "link" );
-        link.href =  "commandline_plugin/custom.css";
-        link.type = "text/css";
-        link.rel = "stylesheet";
-        link.media = "screen,print";
-        document.getElementsByTagName( "head" )[0].appendChild( link );
-    });
+                //clean the prompt
+                input.val(''); 
+
+                //leave the content on the page
+                return false;
+            });
+
+            //let a cursor focus on the input when the page is loaded
+            input.focus();
+        });
 
 
-    //load event listener
-    var input = this.$terminalWindow.find('.terminalInput');
-    this.$terminalWindow.find('.terminalForm').submit(function(event){
-        socket.send(input.val());
+    
 
-        //clean the prompt
-        input.val(''); 
-
-        //leave the content on the page
-        return false;
-    });
-
-    //let a cursor focus on the input when the page is loaded
-    input.focus();
+    
 
     this.state = 'stopped';
 }
@@ -84,7 +83,6 @@ ximpel.mediaTypeDefinitions.Terminal.prototype = new ximpel.MediaType();
   
 ximpel.mediaTypeDefinitions.Terminal.prototype.mediaPlay = function(){
     this.state = 'playing';
-    this.$parentElement.append( this.$sidePanel );
     this.$parentElement.append( this.$terminalTestText );
     this.$parentElement.append( this.$terminalWindow );
 
@@ -99,7 +97,6 @@ ximpel.mediaTypeDefinitions.Terminal.prototype.mediaStop = function(){
     this.state = 'stopped';
     this.$terminalTestText.detach();
     this.$terminalWindow.detach(); 
-    this.$sidePanel.detach();
     //same as remove but keeps jquery data associated with the removed elements
     //so when you click play it will appear again
 }

@@ -3,7 +3,7 @@ ximpel.mediaTypeDefinitions.Message = function( customEl, customAttr, $el, playe
     this.customAttributes = customAttr;
     this.$parentElement = $el;
     this.player = player;
-  
+
     this.$messageSpan = $('<span></span>');
     this.$messageSpan.html( this.customAttributes.text );
     this.$messageSpan.css({

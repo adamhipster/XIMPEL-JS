@@ -1,0 +1,80 @@
+.terminalText {
+        color: red;
+        font-size: 100px
+}
+
+.terminalDiv {
+    font-size: 40px; 
+    color: white;
+}
+
+.terminalOutput {
+    color: white; 
+    font-size:40px
+}
+
+.terminalCommand {
+    color: white; 
+    font-size:40px
+}
+
+.terminalInput {
+        font-family: fixed;
+        font-size: 40px;
+        border: none;
+        margin: 0;
+        padding: 0;
+        color: red;
+        /*background-color: black;*/
+}
+
+.terminalForm {
+        margin: 0;
+        'padding: 0;
+        font-size: 40px
+}
+
+body, p, input {
+    font-family: fixed;
+    font-size: 13px;
+    border: none;
+}
+
+p { 
+    white-space: pre; 
+}
+
+p, form, input { 
+    margin:0; 
+    padding:0; 
+}
+
+input:focus { 
+    outline: none; 
+    border: none; 
+}
+
+.sidePanel {
+    font-size: 4em;
+    position: fixed;
+    float: right;
+    width: 400px;
+    height: 1100px;
+    background-color: #335;
+    color: white;
+}
+
+.sidePanel p {
+    font-size: 1em;
+    word-wrap: normal;
+    white-space: normal;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.slide {
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}

@@ -19,7 +19,8 @@
         		<source file="test" extensions="mp4" types="video/mp4" />
         	</video> -->
         	<!--<image src="test.jpg" duration="2" width="600px"  />-->
-            <terminal text="TESTING" duration="60" />
+            <!--<terminal text="TESTING" duration="2" />-->
+            <terminal text="TESTING2" duration="6000" />
             <!--<message text="abcd" duration="5" />-->
             <!--<image_new src="test.jpg" duration="2" width="600px"  />-->
             

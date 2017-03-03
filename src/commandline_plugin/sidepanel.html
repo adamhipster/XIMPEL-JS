@@ -1,0 +1,21 @@
+<script>
+$('a').click(function(e){
+    e.preventDefault();
+    var nextLessonId = $(this).attr('href');
+    $(this).parent().removeClass('active');
+    console.log('nextLessonId')
+    console.log(nextLessonId)
+    $(nextLessonId).addClass('active');
+})
+</script>
+
+<div id="lesson1" class="slide active">
+    <h1>Lesson 1</h1>
+    <p> When you type pwd, you print the working directory of where you are currently in.</p>
+    <a href="#lesson2">next lesson</a>
+</div>
+
+<div id="lesson2" class="slide">
+    <h1>Lesson 2</h1>
+    <p> When you type ls, the filenames and foldernamers of the current directory are displayed.</p>
+</div>
