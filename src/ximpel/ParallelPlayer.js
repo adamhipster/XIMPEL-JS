@@ -1,16 +1,20 @@
+//Under construction! -- Melvin
+
 // SequencePlayer
 // The XIMPEL Player plays subjects and each subject has a SequenceModel which contains
 // the list of things that need to be played (videos, audio, etc.) The SequencePlayer
 // plays this SequenceModel. It makes sure that each item is played one after another.
 // ############################################################################
 
-ximpel.SequencePlayer = function( player, sequenceModel ){
+//To create:
+//parallelplayer, parallelmodel (note: already scaffold in Models.js)
+
+ximpel.ParallelPlayer = function( player, parallelModel ){
 	// The SequencePlayer uses and is used by the Player() object and as such it has a reference to it and all of the Player()'s data.
 	this.player = player;
 
 	// The parallel player is used when the sequence contains a parallel model. These are played by the parallel player.
-	//this.parallelPlayer = new ximpel.ParallelPlayer(); // not yet implemented.
-	//to do: change this -- Melvin
+	this.parallelPlayer = new ximpel.ParallelPlayer();
 	
 	// The media player is used when the sequence ontains a media model. These are played by the media player.
 	this.mediaPlayer = new ximpel.MediaPlayer( player );
@@ -124,7 +128,7 @@ ximpel.SequencePlayer.prototype.playbackController = function(){
 	} else if( itemToPlay instanceof ParallelMediaModel ){
 		// The item to play is a parallel model... so we will play a parallel model.
 		// .... Not yet implemented parallel media items....
-		// this.playParallelModel()
+		this.playParallelModel()
 	}
 }
 
