@@ -3,7 +3,7 @@
 // to add on your page you create an instance of XimpelApp. This object can load playlist
 // and config files from the server, then ask the parser to parse the XML documents and create
 // a playlist that plays the PlaylistModel anc ConfigModel that the parser produced. So
-// XimpelApp manages everything to start the player. When it has started the Player() lobject
+// XimpelApp manages everything to start the player. When it has started the Player() object
 // does everything.
 // ########################################################################################################################################################
 

@@ -1,0 +1,6 @@
+
+1. parallel model plays everything at the same time 
+1b. you can perhaps use a sequence model to offset starting times by defining a custom media type for this et voila.
+
+2. parallel models give attributes to their children to offset delays
+^ yea... probably not gonna do this :P I'll stick to 1b.

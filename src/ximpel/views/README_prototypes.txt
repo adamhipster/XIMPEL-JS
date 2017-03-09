@@ -1,0 +1,1 @@
+View.js serves as a prototype, everything else are instances.

@@ -1,0 +1,1 @@
+MediaType.js serves as a prototype, everything else are instances (also called media items).

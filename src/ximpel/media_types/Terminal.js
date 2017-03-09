@@ -52,10 +52,10 @@ ximpel.mediaTypeDefinitions.Terminal = function( customEl, customAttr, $el, play
 
     //cannot do this: this.$terminalWindow = $('<div class="terminalWrapper"></div>').load("commandline_plugin/terminal.html");
 
-    this.$sidePanel = $('<div class="sidePanel"></div>').load("commandline_plugin/sidepanel.html", function(){
+    this.$sidePanel = $('<div class="sidePanel"></div>').load("ximpel/media_types/terminal_assets/sidepanel.html", function(){
         //add new stylesheet to the document
         var link = document.createElement( "link" );
-        link.href =  "commandline_plugin/custom.css";
+        link.href =  "ximpel/media_types/terminal_assets//custom.css";
         link.type = "text/css";
         link.rel = "stylesheet";
         link.media = "screen,print";

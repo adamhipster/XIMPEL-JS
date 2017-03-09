@@ -176,10 +176,10 @@ ximpel.XimpelAppView.prototype.initWrapperElement = function(){
 ximpel.XimpelAppView.prototype.initButtonElements = function(){
 	var buttonWidth = this.DEFAULT_CONTROL_HEIGHT;
 	var buttonHeight = this.DEFAULT_CONTROL_WIDTH;
-	this.initButtonElement( this.$playButtonElement, 'ximpel/images/play_button.png', 'left', buttonWidth, buttonHeight, this.playHandler.bind(this) );
-	this.initButtonElement( this.$pauseButtonElement, 'ximpel/images/pause_button.png', 'left', buttonWidth, buttonHeight, this.pauseHandler.bind(this) );
-	this.initButtonElement( this.$stopButtonElement, 'ximpel/images/stop_button.png', 'left', buttonWidth, buttonHeight, this.stopHandler.bind(this) );
-	this.initButtonElement( this.$fullscreenButtonElement, 'ximpel/images/fullscreen_button.png', 'right', buttonWidth, buttonHeight, this.fullscreenHandler.bind(this) );
+	this.initButtonElement( this.$playButtonElement, 'ximpel/assets/images/play_button.png', 'left', buttonWidth, buttonHeight, this.playHandler.bind(this) );
+	this.initButtonElement( this.$pauseButtonElement, 'ximpel/assets/images/pause_button.png', 'left', buttonWidth, buttonHeight, this.pauseHandler.bind(this) );
+	this.initButtonElement( this.$stopButtonElement, 'ximpel/assets/images/stop_button.png', 'left', buttonWidth, buttonHeight, this.stopHandler.bind(this) );
+	this.initButtonElement( this.$fullscreenButtonElement, 'ximpel/assets/images/fullscreen_button.png', 'right', buttonWidth, buttonHeight, this.fullscreenHandler.bind(this) );
 }
 
 
