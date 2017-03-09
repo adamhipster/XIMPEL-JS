@@ -203,6 +203,9 @@ ximpel.Parser.prototype.processSubjectNode = function( playlistModel, domElement
 			subjectModel.description = this.processDescriptionNode( playlistModel, child );
 		} else if( childName === 'media' ){
 			subjectModel.sequenceModel = this.processMediaNode( playlistModel, child );
+		} else if( childName === 'parallel'){
+			//not sure if subjectModel has a parallelModel property
+			subjectModel.parallelModel = this.processParallelNode(playlistModel, child );
 		} else if( childName === 'score' || childName === 'variable' ){
 			var variableModifier = this.processVariableNode( playlistModel, child );
 			subjectModel.variableModifiers.push( variableModifier );
@@ -227,8 +230,6 @@ ximpel.Parser.prototype.processMediaNode = function( playlistModel, domElement )
 	// node. So the result will be a SequenceModel object
 	return this.processSequenceNode( playlistModel, domElement );
 }
-
-
 
 // Process a <sequence> node, the result is a SequenceModel
 ximpel.Parser.prototype.processSequenceNode = function( playlistModel, domElement ){
@@ -266,9 +267,8 @@ ximpel.Parser.prototype.processSequenceNode = function( playlistModel, domElemen
 	return sequenceModel;
 }
 
-
-
 // Process the <parallel> node. The result is a ParallelModel object.
+// Probably needs to be adapted, or maybe not even... -- Melvin
 ximpel.Parser.prototype.processParallelNode = function( playlistModel, domElement ){
 	// Get some info about the current domElement (like its parent, its children, etc)
 	var info = this.getDomElementInfo( domElement );

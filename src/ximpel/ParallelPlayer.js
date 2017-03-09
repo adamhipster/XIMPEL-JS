@@ -10,7 +10,7 @@
 //parallelplayer, parallelmodel (note: already scaffold in Models.js)
 
 ximpel.ParallelPlayer = function( player, parallelModel ){
-	// The SequencePlayer uses and is used by the Player() object and as such it has a reference to it and all of the Player()'s data.
+	// The ParallelPlayer uses and is used by the Player() object and as such it has a reference to it and all of the Player()'s data.
 	this.player = player;
 
 	// The parallel player is used when the sequence contains a parallel model. These are played by the parallel player.
@@ -21,6 +21,9 @@ ximpel.ParallelPlayer = function( player, parallelModel ){
 
 	// Register a callback function for when the media player finishes playing the media model.
 	this.mediaPlayer.addEventHandler( this.mediaPlayer.EVENT_MEDIA_PLAYER_END, this.handleMediaPlayerEnd.bind(this) );
+
+	// change the idea that you need to have a sequenceModel  -- Melvin
+	// it either contains a sequenceModel, parallelModel or mediaModel
 
 	// This will contain the sequence model that is being played by the sequence player.
 	this.sequenceModel = null;

@@ -3,8 +3,10 @@ $('a').click(function(e){
     e.preventDefault();
     var nextLessonId = $(this).attr('href');
     $(this).parent().removeClass('active');
-    console.log('nextLessonId')
-    console.log(nextLessonId)
+    $('video').removeAttr('autoplay')
+    var $videoId = $(this).find('video')
+    $videoId.attr('autoplay', '')
+    console.log($videoId)
     $(nextLessonId).addClass('active');
 })
 </script>
@@ -13,9 +15,17 @@ $('a').click(function(e){
     <h1>Lesson 1</h1>
     <p> When you type pwd, you print the working directory of where you are currently in.</p>
     <a href="#lesson2">next lesson</a>
+    <video id="vid_lesson1" width="320" height="240" controls>
+        <source src="commandline_plugin/pwd.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </div>
 
 <div id="lesson2" class="slide">
     <h1>Lesson 2</h1>
     <p> When you type ls, the filenames and foldernamers of the current directory are displayed.</p>
+    <video id="vid_lesson2" width="320" height="240" controls>
+        <source src="commandline_plugin/ls.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </div>
