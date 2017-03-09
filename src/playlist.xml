@@ -5,7 +5,7 @@
 </config>
 <playlist>
     <subject id="test" leadsTo="Intro">
-        <sequence>
+        <parallel>
         	<!-- <audio>
         		<source file="test" extensions="mp3" types="audio/mp3" />
                 <overlay startTime="1" duration="2" backgroundColor="red" text="click" leadsTo="test" />
@@ -21,13 +21,18 @@
         	<!--<image src="test.jpg" duration="2" width="600px"  />-->
             <!--<terminal text="TESTING" duration="2" />-->
             <!-- <filler duration="5" /> -->
-            <terminal text="TESTING2" duration="0" />
+            <!-- <sequence>
+                <message text="abcd" />
+            </sequence> -->
+            <sequence>
+                <terminal text="TESTING2" duration="2" />
+            </sequence>
             <!--<image_new src="test.jpg" duration="2" width="600px"  />-->
             
             <!--<youtube id="AI0RTvlm0hw" startTime="300" duration="10" height="800px" width="800px" />
             <youtube id="4_UVnsG7COM" startTime="300" duration="10" />
             <youtube id="J_x-dIA7oeE" startTime="300" duration="10" />-->
-        </sequence>
+        </parallel>
     </subject>
 </playlist>
 </ximpel>

@@ -201,10 +201,11 @@ ximpel.Parser.prototype.processSubjectNode = function( playlistModel, domElement
 
 		if( childName === 'description' ){
 			subjectModel.description = this.processDescriptionNode( playlistModel, child );
-		} else if( childName === 'media' || childName === 'sequence'){
+		} else if( childName === 'media'){
 			subjectModel.sequenceModel = this.processMediaNode( playlistModel, child );
+		} else if( childName === 'sequence'){
+			subjectModel.sequenceModel = this.processSequenceNode( playlistModel, child );
 		} else if( childName === 'parallel'){
-			//not sure if subjectModel has a parallelModel property
 			subjectModel.parallelModel = this.processParallelNode(playlistModel, child );
 		} else if( childName === 'score' || childName === 'variable' ){
 			var variableModifier = this.processVariableNode( playlistModel, child );
@@ -275,7 +276,7 @@ ximpel.Parser.prototype.processParallelNode = function( playlistModel, domElemen
 	var parallelModel = new ximpel.ParallelModel();
 
 	// Process and store the child elements of the <parallel> element.
-	for( var i=0; i<info.childElements; i++ ){
+	for( var i=0; i<info.nrOfChildElements; i++ ){
 		var child = info.childElements[i];
 		var childName = child.nodeName;
 		
