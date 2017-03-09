@@ -12,11 +12,14 @@ ximpel.SequencePlayer = function( player, sequenceModel ){
 	//this.parallelPlayer = new ximpel.ParallelPlayer(); // not yet implemented.
 	//to do: change this -- Melvin
 	
-	// The media player is used when the sequence ontains a media model. These are played by the media player.
+	// The media player is used when the sequence contains a media model. These are played by the media player.
 	this.mediaPlayer = new ximpel.MediaPlayer( player );
 
 	// Register a callback function for when the media player finishes playing the media model.
 	this.mediaPlayer.addEventHandler( this.mediaPlayer.EVENT_MEDIA_PLAYER_END, this.handleMediaPlayerEnd.bind(this) );
+
+	// The parallel player is used when the sequence contains a parallel model.
+	this.parallelPlayer = new ximpel.ParallelPlayer( player );
 
 	// This will contain the sequence model that is being played by the sequence player.
 	this.sequenceModel = null;
@@ -122,12 +125,13 @@ ximpel.SequencePlayer.prototype.playbackController = function(){
 		this.playMediaModel( itemToPlay );
 		this.currentSequenceIndex++;
 	} 
-	// else if( itemToPlay instanceof ParallelMediaModel ){
+	else if( itemToPlay instanceof ximpel.ParallelModel ){
 		// TO DO -- Melvin
 		// The item to play is a parallel model... so we will play a parallel model.
 		// .... Not yet implemented parallel media items....
-		// this.playParallelModel()
-	// }
+		var shamParallelModel = { shamKey: "shamValue" };
+		this.playParallelModel( itemToPlay );
+	}
 }
 
 
@@ -169,6 +173,17 @@ ximpel.SequencePlayer.prototype.playMediaModel = function( mediaModel ){
 	this.mediaPlayer.play( mediaModel );
 }
 
+// Start playing a parallel model
+ximpel.SequencePlayer.prototype.playParallelModel = function( parallelModel ){
+	this.currentModel = parallelModel;
+
+	// To do! Apply variable modifiers -- Melvin
+	// Apply all variable modifiers that were defined for the mediaModel that is about to be played.
+	// this.player.applyVariableModifiers( mediaModel.variableModifiers );
+
+	//note a paralleplayer can only have a sequence as valid child. So we'll come back here.
+	this.parallelPlayer.play( parallelModel );
+}
 
 
 // Pause the sequence player.
