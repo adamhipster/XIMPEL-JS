@@ -201,7 +201,7 @@ ximpel.Parser.prototype.processSubjectNode = function( playlistModel, domElement
 
 		if( childName === 'description' ){
 			subjectModel.description = this.processDescriptionNode( playlistModel, child );
-		} else if( childName === 'media' ){
+		} else if( childName === 'media' || childName === 'sequence'){
 			subjectModel.sequenceModel = this.processMediaNode( playlistModel, child );
 		} else if( childName === 'parallel'){
 			//not sure if subjectModel has a parallelModel property

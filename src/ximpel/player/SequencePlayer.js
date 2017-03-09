@@ -121,11 +121,13 @@ ximpel.SequencePlayer.prototype.playbackController = function(){
 		// The item to play is a mediaModel... so we will play a media model.
 		this.playMediaModel( itemToPlay );
 		this.currentSequenceIndex++;
-	} else if( itemToPlay instanceof ParallelMediaModel ){
+	} 
+	// else if( itemToPlay instanceof ParallelMediaModel ){
+		// TO DO -- Melvin
 		// The item to play is a parallel model... so we will play a parallel model.
 		// .... Not yet implemented parallel media items....
 		// this.playParallelModel()
-	}
+	// }
 }
 
 
@@ -143,6 +145,7 @@ ximpel.SequencePlayer.prototype.resume = function(){
 		// Media models are played by a media player so we resume the media player.
 		this.mediaPlayer.resume();
 	} else if( itemToPlay instanceof ParallelMediaModel ){
+		// TO DO -- Melvin
 		// The model that is currently being played is a parallel model. 
 		// Parallel models are played by a parallel player so we resume the parallel player.
 		// ... parallel player not implemented yet.... 
