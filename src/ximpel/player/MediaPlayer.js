@@ -165,7 +165,8 @@ ximpel.MediaPlayer.prototype.reset = function( clearRegisteredEventHandlers ){
 ximpel.MediaPlayer.prototype.play = function( mediaModel ){
 	// If a mediaModel argument is specified then that media model will be used from now on.
 	if( mediaModel ){ 
-		this.use( mediaModel );
+		var preventReset = true; //buggy -- melvin
+		this.use( mediaModel, preventReset );
 	} 
 
 	// If no media model has been set for the media player then there is nothing to play.
@@ -175,10 +176,12 @@ ximpel.MediaPlayer.prototype.play = function( mediaModel ){
 	}
 
 	// Ignore this play() call if the media player is already in a playing state.
-	if( this.isPlaying() ){
-		ximpel.warn("MediaPlayer.play(): play() called while already playing.");
-		return this;
-	} else if( this.isPaused() ){
+	// buggy -- melvin
+	// if( this.isPlaying() ){
+	// 	ximpel.warn("MediaPlayer.play(): play() called while already playing.");
+	// 	return this;
+	// } 
+	else if( this.isPaused() ){
 		this.resume();
 		return;
 	}

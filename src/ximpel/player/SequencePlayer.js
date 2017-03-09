@@ -18,9 +18,6 @@ ximpel.SequencePlayer = function( player, sequenceModel ){
 	// Register a callback function for when the media player finishes playing the media model.
 	this.mediaPlayer.addEventHandler( this.mediaPlayer.EVENT_MEDIA_PLAYER_END, this.handleMediaPlayerEnd.bind(this) );
 
-	// The parallel player is used when the sequence contains a parallel model.
-	this.parallelPlayer = new ximpel.ParallelPlayer( player );
-
 	// This will contain the sequence model that is being played by the sequence player.
 	this.sequenceModel = null;
 
@@ -38,6 +35,13 @@ ximpel.SequencePlayer = function( player, sequenceModel ){
 
 	// If a sequence model has been specified then use that sequence model which will be played by the sequence model.
 	if( sequenceModel ){
+		// The parallel player is used when the sequence contains a parallel model.
+		for (var i = 0; i < sequenceModel.list.length; i++) {
+			var child = sequenceModel.list[i]
+			if(child instanceof ximpel.ParallelModel){
+				this.parallelPlayer = new ximpel.ParallelPlayer( player );	
+			}
+		}
 		this.use( sequenceModel, true );
 	}
 };
@@ -81,7 +85,16 @@ ximpel.SequencePlayer.prototype.play = function( sequenceModel ){
 	// If a sequence model is specified as an argument then we use it. This resets the sequence player, causing it to stop
 	// playing whaterver is is currently playing and return into a stopped state where it can start playing again.
 	if( sequenceModel ){
-		this.use( sequenceModel );
+		// The parallel player is used when the sequence contains a parallel model.
+		for (var i = 0; i < sequenceModel.list.length; i++) {
+			var child = sequenceModel.list[i]
+			if(child instanceof ximpel.ParallelModel){
+				this.parallelPlayer = new ximpel.ParallelPlayer( this.player );	
+			}
+		}
+		var preventReset = true; //buggy -- melvin
+		this.currentSequenceIndex = 0; //buggy -- melvin
+		this.use( sequenceModel, preventReset );
 	}
 
 	// If no sequence model is specified as an argument nor is one set at an earlier moment, then there
@@ -91,11 +104,13 @@ ximpel.SequencePlayer.prototype.play = function( sequenceModel ){
 		return;
 	}
 
+	// buggy -- melvin
 	// Ignore this play() call if the sequence player is already playing (ie. is in a playing state).
-	if( this.isPlaying() ){
-		ximpel.warn("SequencePlayer.play(): play() called while already playing.");
-		return this;
-	} else if( this.isPaused() ){
+	// if( this.isPlaying() ){
+	// 	ximpel.warn("SequencePlayer.play(): play() called while already playing.");
+	// 	return this;
+	// } 
+	else if( this.isPaused() ){
 		// The player is in a paused state so we just resume.
 		this.resume();
 		return this;

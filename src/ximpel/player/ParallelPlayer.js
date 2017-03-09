@@ -15,8 +15,14 @@ ximpel.ParallelPlayer = function( player, parallelModel ){
 
 	// Should I register a callback function for when the sequence models are done? -- to do! -- Melvin
 
+	// // The sequence player is used when the parallel model contains a sequence model.
+	this.sequencePlayer = new ximpel.SequencePlayer( player );
+
 	// This will contain the parallel model that is being played by the sequence player.
 	this.parallelModel = null;
+
+	// This will hold the model that is currently being played. note that this can either be a mediaModel or a parallelModel.
+	this.currentModel = null;
 
 	// PubSub is used to subscribe callback functions for specific events and to publish those events to the subscribers.
 	this.pubSub = new ximpel.PubSub();
@@ -121,16 +127,22 @@ ximpel.ParallelPlayer.prototype.playbackController = function(parallelModel){
 	// 	this.playParallelModel()
 	// }
 
-	//I am here now. The logging works, it has the right sequence models...
+	// Do I need to throw some form of event listeners?
 
 	for (var i = 0; i < parallelModel.list.length; i++) {
 		var child = parallelModel.list[i];
-		console.log('logging le kids')
-		console.log(child)
+		// we do not do any checking, but we should... we just assume it's wrapped in a sequence model.
+		this.playSequenceModel(child)
+
 	}
 
 }
 
+ximpel.ParallelPlayer.prototype.playSequenceModel = function( sequenceModel ){
+	// this.currentModel = sequenceModel;
+	console.log(sequenceModel);
+	this.sequencePlayer.play( sequenceModel );
+}
 
 
 // Resume playing the sequence model.

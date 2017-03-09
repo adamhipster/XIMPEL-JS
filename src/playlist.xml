@@ -27,8 +27,9 @@
                 </sequence> -->
                 <sequence>
                     <message text="abcd" />
-                    <terminal text="TESTING2" duration="2" />
+                    <!-- <terminal text="TESTING2" duration="2" /> -->
                 </sequence>
+               
                 <sequence>
                     <message text="bobby" />
                 </sequence>
