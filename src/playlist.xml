@@ -33,6 +33,15 @@
                 <sequence>
                     <message text="bobby" />
                 </sequence>
+                <sequence>
+                    <youtube id="DrgML20YxaA" width="400px" height="400px" x="0" y="0" />
+                </sequence>
+
+                <sequence>
+                    <filler duration="5" />
+                    <youtube id="DrgML20YxaA" width="400px" height="400px" x="500" y="500" />
+                </sequence>
+
                 <!--<image_new src="test.jpg" duration="2" width="600px"  />-->
                 
                 <!--<youtube id="AI0RTvlm0hw" startTime="300" duration="10" height="800px" width="800px" />
