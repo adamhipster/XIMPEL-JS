@@ -15,13 +15,13 @@ ximpel.ParallelPlayer = function( player, parallelModel ){
 
 	// Should I register a callback function for when the sequence models are done? -- to do! -- Melvin
 
-	// // The sequence player is used when the parallel model contains a sequence model.
-	this.sequencePlayer = new ximpel.SequencePlayer( player );
+	// // The sequence players used that are nested in parallel model.
+	this.sequencePlayers = [];
 
-	// This will contain the parallel model that is being played by the sequence player.
+	// This will contain the parallel model that is being played by the parallel player.
 	this.parallelModel = null;
 
-	// This will hold the model that is currently being played. note that this can either be a mediaModel or a parallelModel.
+	// This will hold the model that is currently being played. note that this can either be a mediaModel or a sequenceModel.
 	this.currentModel = null;
 
 	// PubSub is used to subscribe callback functions for specific events and to publish those events to the subscribers.
@@ -45,10 +45,9 @@ ximpel.ParallelPlayer.prototype.STATE_STOPPED = 'state_pp_stopped';
 ximpel.ParallelPlayer.prototype.use = function( parallelModel, preventReset ){
 	// Reset this sequence player to its starting state from where it can start playing the sequence model again. If the preventReset argument
 	// is set to true then the reset is not done, this can be used when you know the sequence player is in its default state already.
-	if( !preventReset ){
-		// to do -- Melvin
-		// this.reset();
-	}
+	// if( !preventReset ){
+	// 	this.reset();
+	// }
 
 	this.parallelModel = parallelModel;
 }
@@ -72,22 +71,26 @@ ximpel.ParallelPlayer.prototype.use = function( parallelModel, preventReset ){
 
 // Start playing the current parallel model or if one is specified as an argument then play that SequenceModel
 ximpel.ParallelPlayer.prototype.play = function( parallelModel ){
-	// If a sequence model is specified as an argument then we use it. This resets the sequence player, causing it to stop
-	// playing whaterver is is currently playing and return into a stopped state where it can start playing again.
+	// If a parallelModel model is specified as an argument then we use it. This resets the parallelModel player, causing it to stop
+	// playing whatever is is currently playing and return into a stopped state where it can start playing again.
 	if( parallelModel ){
 		this.use( parallelModel );
 	}
 
+	// if(!this.sequencePlayers){
+	// 	this.sequencePlayers = [];
+	// }
+
 	// If no parallel model is specified as an argument nor is one set at an earlier moment, then there
 	// is nothing to play so give an error message and return.
 	if( !this.parallelModel ){
-		ximpel.error("SequencePlayer.play(): cannot start playing because no parallel model has been specified.");
+		ximpel.error("ParallelPlayer.play(): cannot start playing because no parallel model has been specified.");
 		return;
 	}
 
 	// Ignore this play() call if the sequence player is already playing (ie. is in a playing state).
 	if( this.isPlaying() ){
-		ximpel.warn("SequencePlayer.play(): play() called while already playing.");
+		ximpel.warn("ParallelPlayer.play(): play() called while already playing.");
 		return this;
 	} 
 	// else if( this.isPaused() ){
@@ -132,16 +135,19 @@ ximpel.ParallelPlayer.prototype.playbackController = function(parallelModel){
 	for (var i = 0; i < parallelModel.list.length; i++) {
 		var child = parallelModel.list[i];
 		// we do not do any checking, but we should... we just assume it's wrapped in a sequence model.
-		this.playSequenceModel(child)
+		child.parallelModelIsParent = true;
+		this.sequencePlayers[i] = new ximpel.SequencePlayer( this.player, child );
+		
+		this.playSequenceModel(child, i);
 
 	}
 
 }
 
-ximpel.ParallelPlayer.prototype.playSequenceModel = function( sequenceModel ){
+ximpel.ParallelPlayer.prototype.playSequenceModel = function( sequenceModel, i ){
 	// this.currentModel = sequenceModel;
 	console.log(sequenceModel);
-	this.sequencePlayer.play( sequenceModel );
+	this.sequencePlayers[i].play( sequenceModel );
 }
 
 

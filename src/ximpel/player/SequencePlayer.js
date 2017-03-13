@@ -10,7 +10,9 @@ ximpel.SequencePlayer = function( player, sequenceModel ){
 
 	// The parallel player is used when the sequence contains a parallel model. These are played by the parallel player.
 	//this.parallelPlayer = new ximpel.ParallelPlayer(); // not yet implemented.
-	//to do: change this -- Melvin
+
+	//holds the parallel player
+	this.parallelPlayer = null;
 	
 	// The media player is used when the sequence contains a media model. These are played by the media player.
 	this.mediaPlayer = new ximpel.MediaPlayer( player );
@@ -35,14 +37,7 @@ ximpel.SequencePlayer = function( player, sequenceModel ){
 
 	// If a sequence model has been specified then use that sequence model which will be played by the sequence model.
 	if( sequenceModel ){
-		// The parallel player is used when the sequence contains a parallel model.
-		for (var i = 0; i < sequenceModel.list.length; i++) {
-			var child = sequenceModel.list[i]
-			if(child instanceof ximpel.ParallelModel){
-				this.parallelPlayer = new ximpel.ParallelPlayer( player );	
-			}
-		}
-		this.use( sequenceModel, true );
+		this.use( sequenceModel );
 	}
 };
 ximpel.SequencePlayer.prototype.EVENT_SEQUENCE_END = 'EVENT_SEQUENCE_END';
@@ -63,8 +58,6 @@ ximpel.SequencePlayer.prototype.use = function( sequenceModel, preventReset ){
 	this.sequenceModel = sequenceModel;
 }
 
-
-
 // The reset function resets the sequence player into the start state from where it can start playing a sequence model again.
 // After this method the sequence player has no visual elements displayed anymore. Ie. Its media player and parallel player are stopped.
 ximpel.SequencePlayer.prototype.reset = function( clearRegisteredEventHandlers ){
@@ -83,18 +76,23 @@ ximpel.SequencePlayer.prototype.reset = function( clearRegisteredEventHandlers )
 // Start playing the current sequence model or if one is specified as an argument then play that SequenceModel
 ximpel.SequencePlayer.prototype.play = function( sequenceModel ){
 	// If a sequence model is specified as an argument then we use it. This resets the sequence player, causing it to stop
-	// playing whaterver is is currently playing and return into a stopped state where it can start playing again.
+	// playing whatever is is currently playing and return into a stopped state where it can start playing again.
 	if( sequenceModel ){
 		// The parallel player is used when the sequence contains a parallel model.
 		for (var i = 0; i < sequenceModel.list.length; i++) {
 			var child = sequenceModel.list[i]
-			if(child instanceof ximpel.ParallelModel){
+			if(child instanceof ximpel.ParallelModel && !this.parallelPlayer){
 				this.parallelPlayer = new ximpel.ParallelPlayer( this.player );	
 			}
 		}
-		var preventReset = true; //buggy -- melvin
-		this.currentSequenceIndex = 0; //buggy -- melvin
-		this.use( sequenceModel, preventReset );
+		if(sequenceModel.parallelModelIsParent){
+			var preventReset = true;
+			this.currentSequenceIndex = 0;
+			this.use( sequenceModel, true );
+		}
+		else{
+			this.use( sequenceModel );
+		}
 	}
 
 	// If no sequence model is specified as an argument nor is one set at an earlier moment, then there
@@ -104,12 +102,12 @@ ximpel.SequencePlayer.prototype.play = function( sequenceModel ){
 		return;
 	}
 
-	// buggy -- melvin
 	// Ignore this play() call if the sequence player is already playing (ie. is in a playing state).
-	// if( this.isPlaying() ){
-	// 	ximpel.warn("SequencePlayer.play(): play() called while already playing.");
-	// 	return this;
-	// } 
+	// mightbebug -- melvin
+	if( this.isPlaying() && !this.sequenceModel.parallelModelIsParent ){
+		ximpel.warn("SequencePlayer.play(): play() called while already playing.");
+		return this;
+	} 
 	else if( this.isPaused() ){
 		// The player is in a paused state so we just resume.
 		this.resume();
@@ -180,7 +178,13 @@ ximpel.SequencePlayer.prototype.resume = function(){
 
 // Start playing a media model.
 ximpel.SequencePlayer.prototype.playMediaModel = function( mediaModel ){
+	if(this.sequenceModel.parallelModelIsParent){
+		mediaModel.parallelModelIsParent = true;	
+	}
+
 	this.currentModel = mediaModel;
+	console.log('this.currentModel')
+	console.log(this.currentModel)
 
 	// Apply all variable modifiers that were defined for the mediaModel that is about to be played.
 	this.player.applyVariableModifiers( mediaModel.variableModifiers );

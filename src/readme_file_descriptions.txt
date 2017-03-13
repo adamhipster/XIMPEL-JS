@@ -31,3 +31,5 @@ SequencePlayer  --calls--> MediaPlayer
 ParallelPlayer  --calls--> MediaPlayer n times
 MediaPlayer     --calls--> Custom Media Type (e.g. Terminal.js)
     Including presentational elements
+
+Example: SequencePlayer --> MediaPlayer --> Terminal.js or Video.js

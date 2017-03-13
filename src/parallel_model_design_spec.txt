@@ -4,3 +4,24 @@
 
 2. parallel models give attributes to their children to offset delays
 ^ yea... probably not gonna do this :P I'll stick to 1b.
+
+3. positioning system
+^ who knows... or let the implementors implement it, or both (default positioning system vs. a unique one)
+
+-- I think we're fine if a sequence can only have one <parallel> tag.
+
+<sequence>
+    <parallel>
+        //movie
+        //movie
+        //something_else
+        <sequence>
+            //movie
+            <parallel>
+                //movie
+                //movie
+                //something_else
+            </parallel>
+        </sequence>
+    </parallel>
+</sequence>

@@ -176,11 +176,11 @@ ximpel.MediaPlayer.prototype.play = function( mediaModel ){
 	}
 
 	// Ignore this play() call if the media player is already in a playing state.
-	// buggy -- melvin
-	// if( this.isPlaying() ){
-	// 	ximpel.warn("MediaPlayer.play(): play() called while already playing.");
-	// 	return this;
-	// } 
+	// mightbebug -- melvin
+	if( this.isPlaying() && !this.mediaModel.parallelModelIsParent){
+		ximpel.warn("MediaPlayer.play(): play() called while already playing.");
+		return this;
+	} 
 	else if( this.isPaused() ){
 		this.resume();
 		return;
@@ -412,6 +412,8 @@ ximpel.MediaPlayer.prototype.handleMediaEnd = function(){
 		// if no subject was specified to play next by the mediaModel, then the media player will throw its end event.
 		// The component that listens for that event will be in control from then on (ie. the sequence player or maybe 
 		// a parallel player)
+		console.log('EVENT_MEDIA_PLAYER_END -- this.mediaModel')
+		console.log(this.mediaModel)
 		this.pubSub.publish( this.EVENT_MEDIA_PLAYER_END );
 	}
 }

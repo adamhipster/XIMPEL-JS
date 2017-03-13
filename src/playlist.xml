@@ -5,29 +5,29 @@
 </config>
 <playlist>
     <subject id="test" leadsTo="Intro">
-        <sequence>
-            <parallel>
+            <sequence>
+                <parallel>
+                    <sequence>
+                        <message text="ddd" duration="1" />
+                        <message text="abcd" duration="1" />
+                        <!-- <terminal text="TESTING2" duration="2" /> -->
+                    </sequence>
 
-                <sequence>
-                    <message text="abcd" />
-                    <!-- <terminal text="TESTING2" duration="2" /> -->
-                </sequence>
-               
-                <sequence>
-                    <message text="bobby" />
-                </sequence>
-                <sequence>
-                    <youtube id="DrgML20YxaA" width="400px" height="400px" x="0" y="0" />
-                </sequence>
+                    <sequence>
+                        <message text="bobby" duration="1"/>
+                    </sequence>
+                    <!-- <sequence>
+                        <youtube id="DrgML20YxaA" width="400px" height="400px" x="0" y="0" />
+                    </sequence> -->
 
-                <sequence>
-                    <filler duration="5" />
-                    <youtube id="DrgML20YxaA" width="400px" height="400px" x="500" y="500" />
-                </sequence>
+                <!--  <sequence>
+                        <filler duration="5" />
+                        <youtube id="DrgML20YxaA" width="400px" height="400px" x="500" y="500" />
+                    </sequence> -->
 
 
-            </parallel>
-        </sequence>
+                </parallel>
+            </sequence>
     </subject>
 </playlist>
 </ximpel>
