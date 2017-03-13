@@ -9,7 +9,7 @@
                 <parallel>
                     <sequence>
                         <message text="ddd" duration="1" />
-                        <message text="abcd" duration="1" />
+                        <terminal text="hey" duration="1" />
                         <!-- <terminal text="TESTING2" duration="2" /> -->
                     </sequence>
 

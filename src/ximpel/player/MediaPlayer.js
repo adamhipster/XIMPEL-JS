@@ -165,8 +165,7 @@ ximpel.MediaPlayer.prototype.reset = function( clearRegisteredEventHandlers ){
 ximpel.MediaPlayer.prototype.play = function( mediaModel ){
 	// If a mediaModel argument is specified then that media model will be used from now on.
 	if( mediaModel ){ 
-		var preventReset = true; //buggy -- melvin
-		this.use( mediaModel, preventReset );
+		this.use( mediaModel );
 	} 
 
 	// If no media model has been set for the media player then there is nothing to play.
