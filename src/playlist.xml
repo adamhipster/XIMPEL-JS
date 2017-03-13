@@ -6,36 +6,33 @@
 <playlist>
     <subject id="test" leadsTo="Intro">
             <sequence>
-                <parallel>
-                    <!--<sequence>
-                        <message text="ddd" duration="1" />
-                        <terminal text="hey" duration="1" />
-                         <terminal text="TESTING2" duration="2" /> 
-                    </sequence>-->
 
-                    <!--<sequence>
-                        <message text="bobby" duration="1"/>
-                    </sequence>-->
+                <parallel>
 
                     <sequence>
-                        <message text="hey" />
+                        <message text="Type in pwd and continue to go on your path of awesomeness!" />
                     </sequence>
                     
                     <sequence>
-                        <filler duration="1" />
-                        <parallel>
-                            <sequence>
-                                <video x="0px" y="0px" width="600px" height="900px">
-                                    <source file="test" extensions="mp4" types="video/mp4" />
-                                </video> 
-                            </sequence>
-                            <sequence>
-                                <message text="hey" />
-                            </sequence>
-                        </parallel>
+                        <terminal />    
                     </sequence>
 
-                     <!--<sequence>
+                    <sequence>
+                        <video x="0px" y="400px" width="600px" height="900px">
+                            <source file="ximpel/media_types/terminal_assets/pwd" extensions="mp4" types="video/mp4" />
+                        </video> 
+                    </sequence>
+
+                </parallel>
+
+            </sequence>
+    </subject>
+</playlist>
+</ximpel>
+
+
+
+    <!--<sequence>
                         <message text="bobby" duration="1"/>
                         <youtube id="DrgML20YxaA" width="400px" height="400px" x="0" y="0" />
                     </sequence>
@@ -56,9 +53,27 @@
                         <message text="aaaa" duration="1"/>
                     </sequence>-->
 
+                <!--<video x="0px" y="0px" width="600px" height="900px">
+                    <source file="test" extensions="mp4" types="video/mp4" />
+                </video> 
 
-                </parallel>
-            </sequence>
-    </subject>
-</playlist>
-</ximpel>
+                <parallel>
+
+                    <sequence>
+                        <message text="hey" />
+                    </sequence>
+                    
+                    <sequence>
+                        <filler duration="1" />
+                        <parallel>
+                            <sequence>
+                                <video x="0px" y="0px" width="600px" height="900px">
+                                    <source file="test" extensions="mp4" types="video/mp4" />
+                                </video> 
+                            </sequence>
+                            <sequence>
+                                <message text="hey" />
+                            </sequence>
+                        </parallel>
+                    </sequence>
+                </parallel>-->

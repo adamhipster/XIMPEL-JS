@@ -11,7 +11,7 @@ ximpel.SequencePlayer = function( player, sequenceModel ){
 	// The parallel player is used when the sequence contains a parallel model. These are played by the parallel player.
 	//this.parallelPlayer = new ximpel.ParallelPlayer(); // not yet implemented.
 	//^ note: this may be a better way to initialize the parallelPlayer.
-	// I am not fully sure what is initialized when, but I think we can initialize the parallelPlayer here.
+	// I am not fully sure what is initialized when, but I think we can initialize the parallelPlayer here. 
 
 	//holds the parallel player
 	this.parallelPlayer = null;
@@ -220,8 +220,9 @@ ximpel.SequencePlayer.prototype.pause = function(){
 	// Indicate that we are in a paused state.
 	this.state = this.STATE_PAUSED;
 
+
 	// Tell the media or parallel player to pause.
-	if(this.parallelPlayer) {
+	if(this.parallelPlayer && this.parallelPlayer.isPlaying()) {
 		this.parallelPlayer.pause();
 	}
 	else { 

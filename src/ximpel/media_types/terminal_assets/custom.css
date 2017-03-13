@@ -54,7 +54,7 @@ input:focus {
     border: none; 
 }
 
-.sidePanel {
+/*.sidePanel {
     font-size: 4em;
     position: fixed;
     float: right;
@@ -62,7 +62,7 @@ input:focus {
     height: 1100px;
     background-color: #335;
     color: white;
-}
+}*/
 
 .sidePanel p {
     font-size: 1em;

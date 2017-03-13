@@ -145,7 +145,7 @@ ximpel.ParallelPlayer.prototype.playSequenceModel = function( sequenceModel, i )
 ximpel.ParallelPlayer.prototype.resume = function(){
 	// Ignore this resume() call if the sequence player is already in a playing state.
 	if( !this.isPaused() ){
-		ximpel.warn("SequencePlayer.resume(): resume() called while not in a paused state.");
+		ximpel.warn("ParallelPlayer.resume(): resume() called while not in a paused state.");
 		return this;
 	}
 
@@ -178,7 +178,7 @@ ximpel.ParallelPlayer.prototype.resume = function(){
 ximpel.ParallelPlayer.prototype.pause = function(){
 	// Ignore this pause() call if the sequence player is not in a playing state.
 	if( ! this.isPlaying() ){
-		ximpel.warn("SequencePlayer.pause(): pause() called while not in a playing state.");
+		ximpel.warn("ParallelPlayer.pause(): pause() called while not in a playing state.");
 		return this;
 	}
 
@@ -198,7 +198,7 @@ ximpel.ParallelPlayer.prototype.pause = function(){
 ximpel.ParallelPlayer.prototype.stop = function(){
 	// Ignore this stop() call if the sequence player is already in the stopped state.
 	if( this.isStopped() ){
-		ximpel.warn("SequencePlayer.stop(): stop() called while already in a stopped state.");
+		ximpel.warn("ParallelPlayer.stop(): stop() called while already in a stopped state.");
 		return this;
 	}
 
@@ -232,7 +232,7 @@ ximpel.ParallelPlayer.prototype.isStopped = function(){
 
 // This is the method that gets called when the media player has ended and wants to give back control to the
 // sequence player. Then the sequence player will decide what to do next. 
-ximpel.SequencePlayer.prototype.handleMediaPlayerEnd = function(){
+ximpel.ParallelPlayer.prototype.handleMediaPlayerEnd = function(){
 	this.playbackController();
 }
 
