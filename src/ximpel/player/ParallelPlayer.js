@@ -246,9 +246,9 @@ ximpel.ParallelPlayer.prototype.isStopped = function(){
 
 // This is the method that gets called when the media player has ended and wants to give back control to the
 // sequence player. Then the sequence player will decide what to do next. 
-// ximpel.SequencePlayer.prototype.handleMediaPlayerEnd = function(){
-// 	this.playbackController();
-// }
+ximpel.SequencePlayer.prototype.handleMediaPlayerEnd = function(){
+	this.playbackController();
+}
 
 
 
