@@ -7,23 +7,54 @@
     <subject id="test" leadsTo="Intro">
             <sequence>
                 <parallel>
-                    <sequence>
+                    <!--<sequence>
                         <message text="ddd" duration="1" />
                         <terminal text="hey" duration="1" />
-                        <!-- <terminal text="TESTING2" duration="2" /> -->
+                         <terminal text="TESTING2" duration="2" /> 
+                    </sequence>-->
+
+                    <!--<sequence>
+                        <message text="bobby" duration="1"/>
+                    </sequence>-->
+
+                    <sequence>
+                        <message text="hey" />
+                    </sequence>
+                    
+                    <sequence>
+                        <filler duration="1" />
+                        <parallel>
+                            <sequence>
+                                <video x="0px" y="0px" width="600px" height="900px">
+                                    <source file="test" extensions="mp4" types="video/mp4" />
+                                </video> 
+                            </sequence>
+                            <sequence>
+                                <message text="hey" />
+                            </sequence>
+                        </parallel>
+                    </sequence>
+
+                     <!--<sequence>
+                        <message text="bobby" duration="1"/>
+                        <youtube id="DrgML20YxaA" width="400px" height="400px" x="0" y="0" />
                     </sequence>
 
                     <sequence>
-                        <message text="bobby" duration="1"/>
-                    </sequence>
-                    <!-- <sequence>
-                        <youtube id="DrgML20YxaA" width="400px" height="400px" x="0" y="0" />
-                    </sequence> -->
-
-                <!--  <sequence>
                         <filler duration="5" />
                         <youtube id="DrgML20YxaA" width="400px" height="400px" x="500" y="500" />
-                    </sequence> -->
+                    </sequence> 
+
+                    <sequence>
+                        <youtube id="DrgML20YxaA" width="400px" height="400px" x="550" y="550" duration="3" />
+                        <message text="allyourbasearebelongtous" duration="3" />
+                        <youtube id="DrgML20YxaA" width="400px" height="400px" x="800" y="800" duration="5" />
+                    </sequence>
+
+                    <sequence>
+                        <filler duration="6" />
+                        <message text="aaaa" duration="1"/>
+                    </sequence>-->
 
 
                 </parallel>

@@ -10,6 +10,8 @@ ximpel.SequencePlayer = function( player, sequenceModel ){
 
 	// The parallel player is used when the sequence contains a parallel model. These are played by the parallel player.
 	//this.parallelPlayer = new ximpel.ParallelPlayer(); // not yet implemented.
+	//^ note: this may be a better way to initialize the parallelPlayer.
+	// I am not fully sure what is initialized when, but I think we can initialize the parallelPlayer here.
 
 	//holds the parallel player
 	this.parallelPlayer = null;
@@ -62,6 +64,9 @@ ximpel.SequencePlayer.prototype.use = function( sequenceModel, preventReset ){
 // After this method the sequence player has no visual elements displayed anymore. Ie. Its media player and parallel player are stopped.
 ximpel.SequencePlayer.prototype.reset = function( clearRegisteredEventHandlers ){
 	this.mediaPlayer.stop();
+	if(this.parallelPlayer) {
+		this.parallelPlayer.stop();
+	}
 	this.state = this.STATE_STOPPED;
 	this.currentModel = null;
 	this.currentSequenceIndex = 0;
@@ -161,11 +166,10 @@ ximpel.SequencePlayer.prototype.resume = function(){
 		// the model that is currently being played is a media model.
 		// Media models are played by a media player so we resume the media player.
 		this.mediaPlayer.resume();
-	} else if( itemToPlay instanceof ParallelMediaModel ){
-		// TO DO -- Melvin
+	} else if( this.currentModel instanceof ximpel.ParallelModel ){
 		// The model that is currently being played is a parallel model. 
 		// Parallel models are played by a parallel player so we resume the parallel player.
-		// ... parallel player not implemented yet.... 
+		this.parallelPlayer.resume();
 	}
 
 	// Indicate the sequence player is now in a playing state again.
@@ -216,8 +220,13 @@ ximpel.SequencePlayer.prototype.pause = function(){
 	// Indicate that we are in a paused state.
 	this.state = this.STATE_PAUSED;
 
-	// Tell the media player to pause.
-	this.mediaPlayer.pause();
+	// Tell the media or parallel player to pause.
+	if(this.parallelPlayer) {
+		this.parallelPlayer.pause();
+	}
+	else { 
+		this.mediaPlayer.pause();
+	}
 
 	return this;
 }
