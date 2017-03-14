@@ -4,13 +4,13 @@
     <controlsDisplayMethod>overlay</controlsDisplayMethod>
 </config>
 <playlist>
-    <subject id="test" leadsTo="Intro">
+    <subject id="test">
             <sequence>
 
                 <parallel>
 
                     <sequence>
-                        <message text="Type in pwd and continue to go on your path of awesomeness!" />
+                        <textblock text="Type in pwd and continue to go on your path of awesomeness!" width="600px" height="800px" x="0px" y="0px" color="#0f0" fontsize='50px' />
                     </sequence>
                     
                     <sequence>
@@ -20,6 +20,7 @@
                     <sequence>
                         <video x="0px" y="400px" width="600px" height="900px">
                             <source file="ximpel/media_types/terminal_assets/pwd" extensions="mp4" types="video/mp4" />
+                            <overlay leadsTo="lesson2" width="600px" height="75px" x="0px" y="500px" text="next lesson"/>
                         </video> 
                     </sequence>
 
@@ -27,6 +28,14 @@
 
             </sequence>
     </subject>
+
+    <subject id="lesson2">
+        <sequence>
+            <message text="You made it to the end of the course!" />
+        </sequence>
+    </subject>
+
+
 </playlist>
 </ximpel>
 
