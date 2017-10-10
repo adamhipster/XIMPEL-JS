@@ -16,14 +16,8 @@ ximpel.mediaTypeDefinitions.TextBlock = function( customElements, customAttribut
     this.$rectangle.text(this.customAttributes.text);
     if(this.customAttributes.fontsize){
         this.$rectangle.css({
-            'color': 'black',
-            'font-size': this.customAttributes.fontsize
-        })
-    }
-    else{
-        this.$rectangle.css({
-            'color': 'black',
-            'font-size': '100px'
+            'color': this.customAttributes.fontcolor || 'black',
+            'font-size': this.customAttributes.fontsize || '100px'
         })
     }
 	this.state = this.STATE_STOPPED;

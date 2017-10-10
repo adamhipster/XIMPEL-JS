@@ -229,7 +229,7 @@ ximpel.XimpelAppView.prototype.renderView = function( $parentElement ){
 	this.renderControls();
 	this.renderWrapper();
 	this.listenForWindowResize();
-	this.listenForKeyPresses();
+	// this.listenForKeyPresses();
 	this.listenForFullscreenChange();
 }
 
@@ -434,21 +434,22 @@ ximpel.XimpelAppView.prototype.windowResizeHandler = function(){
 }
 
 
-
+//I disabled this -- Melvin
 ximpel.XimpelAppView.prototype.listenForKeyPresses = function(){
-	var namespace = 'ximpelAppView_'+this.model.appId;
-	this.$appElement.off("keypress."+namespace);
-	this.$appElement.on("keypress."+namespace, function( event ){
-		if( event.which === 102 ){ // the f key
-			this.toggleFullscreen();
-		} else if( event.which === 115 ){ // the s key (start)
-			this.playHandler();
-		} else if( event.which === 113 ){ // the q key (quit)
-			this.stopHandler();
-		} else if( event.which === 112 ){ // the p key (pause_)
-			this.pauseHandler();
-		}
-	}.bind(this) );
+	// var namespace = 'ximpelAppView_'+this.model.appId;
+	// this.$appElement.off("keypress."+namespace);
+	// this.$appElement.on("keypress."+namespace, function( event ){
+	// 	if( event.which === 102 ){ // the f key
+	// 		this.toggleFullscreen();
+	// 	} else if( event.which === 115 ){ // the s key (start)
+	// 		this.playHandler();
+	// 	} else if( event.which === 113 ){ // the q key (quit)
+	// 		this.stopHandler();
+	// 	} else if( event.which === 112 ){ // the p key (pause_)
+	// 		this.pauseHandler();
+	// 	}
+	// }.bind(this) );
+	console.log('keypress negated')
 }
 
 

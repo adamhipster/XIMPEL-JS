@@ -1,5 +1,5 @@
 //Load needed libraries in only once
-$.getScript("https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js", function(){
+$.getScript("ximpel/media_types/terminal_assets/socket.io.js", function(){
     console.log('socket-io client loaded and listening.');
     
     //socket io listeners -- with global socket variable!!!
@@ -66,6 +66,8 @@ ximpel.mediaTypeDefinitions.Terminal = function( customEl, customAttr, $el, play
     //load event listener
     var input = this.$terminalWindow.find('.terminalInput');
     this.$terminalWindow.find('.terminalForm').submit(function(event){
+        event.preventDefault()
+
         socket.send(input.val());
 
         //clean the prompt
