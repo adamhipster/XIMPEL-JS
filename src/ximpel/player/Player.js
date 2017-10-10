@@ -78,6 +78,10 @@ ximpel.Player = function( playerElement, playlistModel, configModel ){
 	// because all the items in the sequence have finished playing, the sequence player will trigger this event.
 	this.sequencePlayer.addEventHandler( this.sequencePlayer.EVENT_SEQUENCE_END, this.handleSequencePlayerEnd.bind(this) );
 
+	//Initialize analytics library and register event handlers for analytics library
+	this.analytics = new ximpel.Analytics();
+	this.analytics.initializeAnalyticsEventHandlers();
+
 	// Do some stuff to initialize the player to make it ready for use.
 	this.init();
 };
@@ -114,6 +118,7 @@ ximpel.Player.prototype.reset = function( clearRegisteredEventHandlers ){
 	
 	// Stop the sequence player. This resets the sequence player to its initial state.
 	this.sequencePlayer.stop();
+	
 
 	// Re-initialize variables.
 	this.variables = [];
@@ -147,7 +152,7 @@ ximpel.Player.prototype.play = function(){
 
 
 
-// Start playing a given subjectModel. 
+// Start playing a given subjectModel.
 ximpel.Player.prototype.playSubject = function( subjectModel ){
 	// Set the specified subjectModel as the current subject model
 	this.currentSubjectModel = subjectModel;
@@ -166,6 +171,9 @@ ximpel.Player.prototype.playSubject = function( subjectModel ){
 
 	// Then finally tell the sequence player to start playing the sequence model of our subject.
 	this.sequencePlayer.play( sequenceModel );
+
+	// Save it to the analytics
+	this.analytics.addSubject( subjectModel );
 }
 
 
