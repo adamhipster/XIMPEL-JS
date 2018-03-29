@@ -90,14 +90,7 @@ ximpel.SequencePlayer.prototype.play = function( sequenceModel ){
 				this.parallelPlayer = new ximpel.ParallelPlayer( this.player );	
 			}
 		}
-		if(sequenceModel.parallelModelIsParent){
-			var preventReset = true;
-			this.currentSequenceIndex = 0;
-			this.use( sequenceModel, true );
-		}
-		else{
-			this.use( sequenceModel );
-		}
+		this.use( sequenceModel );
 	}
 
 	// If no sequence model is specified as an argument nor is one set at an earlier moment, then there
@@ -108,8 +101,7 @@ ximpel.SequencePlayer.prototype.play = function( sequenceModel ){
 	}
 
 	// Ignore this play() call if the sequence player is already playing (ie. is in a playing state).
-	// mightbebug -- melvin
-	if( this.isPlaying() && !this.sequenceModel.parallelModelIsParent ){
+	if( this.isPlaying() ){
 		ximpel.warn("SequencePlayer.play(): play() called while already playing.");
 		return this;
 	} 
@@ -182,9 +174,6 @@ ximpel.SequencePlayer.prototype.resume = function(){
 
 // Start playing a media model.
 ximpel.SequencePlayer.prototype.playMediaModel = function( mediaModel ){
-	if(this.sequenceModel.parallelModelIsParent){
-		mediaModel.parallelModelIsParent = true;	
-	}
 
 	this.currentModel = mediaModel;
 	console.log('this.currentModel')

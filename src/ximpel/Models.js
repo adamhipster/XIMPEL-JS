@@ -70,7 +70,6 @@ ximpel.SubjectModel.prototype.getId = function(){
 ximpel.SequenceModel = function(){
 	// The list of a sequence model may contain MediaModels or ParallelModels
 	this.list = [];
-	this.parallelModelIsParent = false;
 }
 ximpel.SequenceModel.prototype = new ximpel.Model();
 ximpel.SequenceModel.prototype.ORDER_DEFAULT = 'default'; 

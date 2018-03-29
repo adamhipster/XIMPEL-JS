@@ -49,7 +49,7 @@ ximpel.ParallelPlayer.prototype.use = function( parallelModel, preventReset ){
 	}
 
 	this.parallelModel = parallelModel;
-}
+} 
 
 
 
@@ -58,8 +58,11 @@ ximpel.ParallelPlayer.prototype.use = function( parallelModel, preventReset ){
 ximpel.ParallelPlayer.prototype.reset = function( clearRegisteredEventHandlers ){
 	this.state = this.STATE_STOPPED;
 	this.currentModel = null;
+	//need to for-loop media player
 	for(var i = 0; i < this.sequencePlayers.length; i++){
-		this.sequencePlayers[i].stop();
+		if(this.sequencePlayers[i]){
+			this.sequencePlayers[i].stop();
+		}
 	}
 
 	if( clearRegisteredEventHandlers ){
@@ -69,7 +72,7 @@ ximpel.ParallelPlayer.prototype.reset = function( clearRegisteredEventHandlers )
 
 
 
-// Start playing the current parallel model or if one is specified as an argument then play that SequenceModel
+// Start playing the current parallel model or if one is specified as an argument then play that ParallelModel
 ximpel.ParallelPlayer.prototype.play = function( parallelModel ){
 	// If a parallelModel model is specified as an argument then we use it. This resets the parallelModel player, causing it to stop
 	// playing whatever is is currently playing and return into a stopped state where it can start playing again.
@@ -112,6 +115,7 @@ ximpel.ParallelPlayer.prototype.playbackController = function(parallelModel){
 	// maybe I should also include the media tag -- melvin
 	// Do I need to throw some form of event listeners?
 
+	// Don't play if all children of the parallel player are in a STOPPED state
 	var amntEventsEnded = 0;
 	for (var i = 0; i < parallelModel.list.length; i++) {
 		var child = parallelModel.list[i];
@@ -123,11 +127,10 @@ ximpel.ParallelPlayer.prototype.playbackController = function(parallelModel){
 		}
 	}
 
-
+	//instantiate new sequence models and play them
+	//Note: this assumes sequence models
 	for (var i = 0; i < parallelModel.list.length; i++) {
 		var child = parallelModel.list[i];
-		// we do not do any checking, but we should... we just assume it's wrapped in a sequence model.
-		child.parallelModelIsParent = true;
 		this.sequencePlayers[i] = new ximpel.SequencePlayer( this.player, child );
 		
 		this.playSequenceModel(child, i);

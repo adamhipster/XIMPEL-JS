@@ -4,27 +4,60 @@
     <controlsDisplayMethod>overlay</controlsDisplayMethod>
 </config>
 <playlist>
+
+
+    <subject id="subject1" leadsTo="subject1">
+        <media>
+            <image src="test.jpg">
+                <question startTime="5" questionTimeLimit="10" answer="false">
+                    Is a dog a reptile?
+                    <score id="scoreA" operation="add" value="1" />
+                </question>
+                <question startTime="10" questionTimeLimit="10" answer="2">
+                    Which of the following animals can fly?
+                    <option>Cow</option>
+                    <option>Eagle</option>
+                    <option>Deer</option>
+                    <score id="scoreA" operation="add" value="1" />
+                </question>
+            </image>
+        </media>
+    </subject>
+
     <subject id="lesson1">
             <sequence>
 
                 <parallel>
-
                     <sequence>
+                        <filler duration="1" />
+                        <parallel>
+                            <sequence>
+                                <youtube id="DrgML20YxaA" width="200px" height="400px" x="1100px" y="200px" stopAtSubjectId="lesson3"/>
+                            </sequence>
+                            <sequence>
+                                <message text="hey" />
+                            </sequence>
+                        </parallel>
+                    </sequence>
+
+                    <media>
                         <textblock text="Type in pwd and the terminal displays which directory you are working in." width="600px" height="800px" x="0px" y="0px" color="#0f0" fontsize='50px' fontcolor="#fff"/>
-                    </sequence>
+                    </media>
                     
-                    <sequence>
+                    <media>
                         <terminal />    
-                    </sequence>
+                    </media>
 
-                    <sequence>
+                    <media>
                         <video x="0px" y="400px" width="600px" height="900px">
                             <source file="ximpel/media_types/terminal_assets/pwd" extensions="mp4" types="video/mp4" />
                             <overlay leadsTo="lesson2" width="600px" height="75px" x="0px" y="500px" text="next lesson"/>
                         </video> 
-                    </sequence>
+                    </media>
 
                 </parallel>
+
+                
 
             </sequence>
     </subject>
@@ -33,6 +66,10 @@
             <sequence>
 
                 <parallel>
+
+                    <!-- <media>
+                        <youtube id="DrgML20YxaA" width="200px" height="400px" x="600px" y="700px" stopAtSubjectId="lesson4"/>
+                    </media> -->
 
                     <sequence>
                         <textblock text="The command ls helps you to list the files that are in the current directory you are working in." width="600px" height="800px" x="0px" y="0px" color="#0f0" fontsize='50px' />
@@ -56,10 +93,21 @@
 
     <subject id="lesson3">
         <sequence>
-            <message text="You made it to the end of the course!" />
+            <parallel>
+                <sequence>
+                    <message text="Almost there!">
+                        <overlay leadsTo="lesson4" width="600px" height="75px" x="0px" y="500px" text="next lesson"/>
+                    </message>
+                </sequence>
+            </parallel>
         </sequence>
     </subject>
 
+    <subject id="lesson4">
+        <sequence>
+            <message text="You made it to the end of the course!" />
+        </sequence>
+    </subject>
 
 </playlist>
 </ximpel>

@@ -3,7 +3,7 @@ $.getScript("ximpel/media_types/terminal_assets/socket.io.js", function(){
     console.log('socket-io client loaded and listening.');
     
     //socket io listeners -- with global socket variable!!!
-    socket = io('http://localhost:8080')
+    socket = io('http://localhost:8080');
 
     socket.on('connect',function() {
         console.log('Client has connected to the server!');

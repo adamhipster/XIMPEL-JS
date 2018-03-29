@@ -30,7 +30,7 @@
 // - customAttributes - contains the attributes that were on the <youtube> tag in the playlist.
 // - $parentElement - The element to which the youtube iframe will be appended (the ximpel player element).
 // - player - A reference to the player object, so that the media type can use functions from the player.
-ximpel.mediaTypeDefinitions.YouTube = function( customElements, customAttributes, $parentElement, player ){
+ximpel.mediaTypeDefinitions.YouTube = function( customElements, customAttributes, $parentElement, player, model ){
 	// The custom elements that were added inside the <youtube> tag in the playlist.
 	this.customElements = customElements; // not used right now.
 
@@ -42,6 +42,66 @@ ximpel.mediaTypeDefinitions.YouTube = function( customElements, customAttributes
 
 	// A reference to the XIMPEL player object. The media type can make use of functions on the player object.
 	this.player = player;
+	var sqModel = new ximpel.SequenceModel();
+	this.model = model;
+	// sqModel.add(model);
+	// this.player.subjectModels["lesson2"].sequenceModel.list[0].add(sqModel);
+	var traverse = function(model, path){
+		path.push(model);
+		if(model instanceof ximpel.MediaModel){
+			for (var i = 0; i < model.overlays.length; i++) {
+				var overlay = model.overlays[i];
+				for (var j = 0; j < overlay.leadsToList.length; j++) {
+					var leadsTo = overlay.leadsToList[j];
+					if(customAttributes.stopAtSubjectId === leadsTo.subject){
+						insertModel(path.slice());
+						return;
+					}
+				}
+			}
+			return;
+		}
+		for (var k = 0; k < model.list.length; k++) {
+			// console.log(model, k);
+			// console.log(path);
+			traverse(model.list[k], path.slice());
+		}
+	}.bind(this);
+
+	var insertModel = function(path){
+		var subjectId = path[0].subjectId;
+		var sequenceModel = this.player.subjectModels[subjectId].sequenceModel;
+
+		var traverse = function(sequenceModel){
+			for (var i = 0; i < sequenceModel.list.length; i++) {
+				var model = sequenceModel.list[i];
+				if(model instanceof ximpel.ParallelModel){
+					// console.log('addModel');
+					// console.log(path);
+					// console.log(model);
+					// console.log(this.model);
+					var sqModel = new ximpel.SequenceModel();
+					sqModel.add(this.model); //create SequenceModel
+					model.add(sqModel);					//insert in Parallel Model
+					return;
+				} else {
+					traverse(model.list[i]);
+				}
+			}
+			return;
+		}.bind(this);
+
+		traverse(sequenceModel);
+	}.bind(this);
+
+	for (var key in this.player.subjectModels) {
+		var sequenceModel = this.player.subjectModels[key].sequenceModel;
+		traverse(sequenceModel, [this.player.subjectModels[key]]);
+	}
+
+	console.log('this.player');
+	console.log(this.player);
+
 
 	// The youtube video id (can be found in the URL of a youtube video).
 	this.videoId = customAttributes.id;
@@ -253,7 +313,7 @@ ximpel.mediaTypeDefinitions.YouTube.prototype.loadYoutubePlayer = function( defe
 	    playerVars: {
 	    	/*'enablejsapi': 1,*/
 	    	'html5': 1, 		// use the html5 player?
-			'autoplay': 0,		// auto play video on load?
+				'autoplay': 0,		// auto play video on load?
      		'controls': 0, 		// show controls?
      		'rel' : 0, 			// show related videos at the end?
      		'showinfo': 0,		// show video information?
@@ -404,7 +464,15 @@ ximpel.mediaTypeDefinitions.YouTube.prototype.mediaPause = function(){
 // The stop method stops the video entirely without being able to resume later on. After this method the video playback pointer
 // has been reset to its start position and the youtube i frame element is detached from the DOM, so nothing is visible anymore.
 ximpel.mediaTypeDefinitions.YouTube.prototype.mediaStop = function(){
+	console.log(this);
 	if( this.state === this.STATE_STOPPED ){
+		return;
+	}
+	var csm = this.player.currentSubjectModel;
+	if( csm.subjectId  !== this.customAttributes.stopAtSubjectId && this.customAttributes.stopAtSubjectId !== undefined) {
+		// this.state = this.STATE_PLAYING;
+		// console.log(this.mediaModel);
+		// this.onEnd(this.player.sequencePlayer.mediaPlayer.handlePlaybackEnd.bind(this));
 		return;
 	}
 	this.state = this.STATE_STOPPED;
@@ -468,7 +536,7 @@ var mediaTypeRegistrationObject = new ximpel.MediaTypeRegistration(
 	'youtube',  							// = the media type ID (and also the tagname used in the playlist)
 	ximpel.mediaTypeDefinitions.YouTube,	// a pointer to the constructor function to create instances of the media type.
 	{
-		'allowedAttributes': ['videoId', 'width', 'height', 'x', 'y', 'startTime'], // the attributes that are allowed on the <youtube> tag (excluding the attributes that are available for every media type like duration).
+		'allowedAttributes': ['videoId', 'width', 'height', 'x', 'y', 'startTime', 'stopAtSubjectId'], // the attributes that are allowed on the <youtube> tag (excluding the attributes that are available for every media type like duration).
 		'requiredAttributes': ['videoId'],	// the attributes that are required on the <youtube> tag.
 		'allowedChildren': ['source'],		// the child elements that are allowed on the <youtube> tag.
 		'requiredChildren': ['source'] 		// The child elements that are required on the <youtube> tag.

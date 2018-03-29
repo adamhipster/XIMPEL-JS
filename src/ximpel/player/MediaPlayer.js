@@ -188,7 +188,7 @@ ximpel.MediaPlayer.prototype.play = function( mediaModel ){
 	// Indicate that the media player is in a playing state.
 	this.state = this.STATE_PLAYING;
 
-	// Start playing the mediaItem
+	// Start playing the mediaItem -- see MediaType.js
 	this.mediaItem.play();
 
 	// This does some stuff needed to keep track of the playTime of a media item.

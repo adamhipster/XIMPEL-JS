@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ximpel>
+    <playlist>
+        <subject id="subject1">
+            <media>
+                <youtube id="AI0RTvlm0hw" duration="30">
+                    <overlay leadsTo="subject2" x="200" y="100" shape="rectangle" width="400px" height="200px" text="Go subject2" fontSize="2em" />
+                    <overlay leadsTo="subject3" x="700" y="100" shape="rectangle" width="400px" height="200px" text="Go subject3" fontSize="2em" />
+                </youtube>
+            </media>
+        </subject>
+        <subject id="subject2">
+            <media>
+                <youtube id="iNr0efL7Wz8" duration="30">
+                    <variable id="score1" operation="add" value="100" />
+                    <variable id="score2" operation="substract" value="50" />
+                </youtube>
+            </media>
+        </subject>
+        <subject id="subject3">
+            <media>
+                <youtube id="iBTIQ--9er0" duration="30">
+                    <variable id="score1" operation="substract" value="50" />
+                    <variable id="score2" operation="add" value="75" />
+                </youtube>
+            </media>
+        </subject>
+    </playlist>
+</ximpel>

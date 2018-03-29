@@ -27,7 +27,7 @@ ximpel.Parser = function(){
 		'playlist': ['subject', 'score'],
 		'subject': 	['description', 'media', 'score', 'sequence', 'parallel'],
 		'media': 	['parallel', 'sequence'].concat(this.registeredMediaTags), // add the custom media tags to the allowed children of <media>
-		'parallel': ['sequence'].concat(this.registeredMediaTags), 	// add the custom media tags to the allowed children of <parallel>
+		'parallel': ['media', 'sequence'].concat(this.registeredMediaTags), 	// add the custom media tags to the allowed children of <parallel>
 		'sequence': ['parallel'].concat(this.registeredMediaTags), 	// add the custom media tags to the allowed children of <sequence>;
 		'overlay': 	['score'],
  		'score': 	[''],
@@ -285,6 +285,8 @@ ximpel.Parser.prototype.processParallelNode = function( playlistModel, domElemen
 			parallelModel.add( this.processMediaTypeNode( playlistModel, child ) );
 		} else if( childName === 'sequence' ){
 			parallelModel.add( this.processSequenceNode( playlistModel, child ) );
+		} else if( childName === 'media'){
+			parallelModel.add( this.processMediaNode( playlistModel, child ) );
 		} else{
 			ximpel.warn('Parser.processParallelNode(): Invalid child ignored! Element <'+info.tagName+'> has child <'+childName+'>. Allowed children: ' + this.validChildren[info.tagName].toString()  + '.');
 		}
