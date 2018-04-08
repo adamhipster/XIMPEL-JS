@@ -26,7 +26,7 @@
     border: 0;
 }
 .ximpelWrapper{
-    background-color: red;
+    background-color: black;
 }
 /* Default styling for the main ximpel player element */
 .ximpelPlayer{
@@ -111,6 +111,66 @@
 
 .scoreContainer .score {
 	color: white;
+}
+
+.urlDisplay {
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	padding: 0px;
+	position: absolute;
+	z-index: 9999;
+	background-color: #fff;
+}
+
+.urlDisplay iframe {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+}
+
+.urlDisplay img.closeButton {
+	top: 0px;
+	right: 0px;
+	position: absolute;
+	z-index: 2;
+	margin: 40px;
+	background-color: #000;
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+.ximpelVideoContainer > video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+}
+
+.ximpelProgressBar {
+	position: absolute;
+	height: 20px;
+	width: 100%;
+	z-index: 1;
+	opacity: 0.4;
+	background: #000000;
+}
+
+.ximpelProgressBar > div {
+	position: relative;
+	transition: width 1s;
+	width: 0;
+	height: 100%;
+	background: #55ee55;
+}
+
+@keyframes swipe {
+	to {
+		transform: translateX(0px) translateY(0px) scale(1.0);
+		opacity: 1.0;
+	}
 }
 
 /* 	

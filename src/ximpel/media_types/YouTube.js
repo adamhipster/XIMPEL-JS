@@ -293,11 +293,6 @@ ximpel.mediaTypeDefinitions.YouTube.prototype.requestYoutubeApiScript = function
 ximpel.mediaTypeDefinitions.YouTube.prototype.loadYoutubePlayer = function( deferred ){
 	// The function to be called when the youtube player is ready to be used.
 	var youtubePlayerReadyHandler = function(){
-		// If the startTime is zero then we use 0.01 instead because youtube doesn't 
-		// allow seeking to time "0".
-		var startTime = this.startTime === 0 ? 0.01 : this.startTime;
-
-		this.youtubePlayer.seekTo( startTime, true );
 		deferred.resolve();
 	}
 
@@ -320,8 +315,9 @@ ximpel.mediaTypeDefinitions.YouTube.prototype.loadYoutubePlayer = function( defe
      		'disablekb': 1,		// disable keyboard shortcuts?
      		'wmode': 'opaque',
      		'modestbranding': 0,
-     		'iv_load_policy': 3 // show annotations? (3=no, 1 =yes)
-			}
+     		'iv_load_policy': 3, // show annotations? (3=no, 1 =yes)
+     		'start': this.startTime
+		}
 	});
 
 	return deferred;
@@ -536,7 +532,7 @@ var mediaTypeRegistrationObject = new ximpel.MediaTypeRegistration(
 	'youtube',  							// = the media type ID (and also the tagname used in the playlist)
 	ximpel.mediaTypeDefinitions.YouTube,	// a pointer to the constructor function to create instances of the media type.
 	{
-		'allowedAttributes': ['videoId', 'width', 'height', 'x', 'y', 'startTime', 'stopAtSubjectId'], // the attributes that are allowed on the <youtube> tag (excluding the attributes that are available for every media type like duration).
+		'allowedAttributes': ['mute', 'videoId', 'width', 'height', 'x', 'y', 'startTime', 'stopAtSubjectId'], // the attributes that are allowed on the <youtube> tag (excluding the attributes that are available for every media type like duration).
 		'requiredAttributes': ['videoId'],	// the attributes that are required on the <youtube> tag.
 		'allowedChildren': ['source'],		// the child elements that are allowed on the <youtube> tag.
 		'requiredChildren': ['source'] 		// The child elements that are required on the <youtube> tag.
