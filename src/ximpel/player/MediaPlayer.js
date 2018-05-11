@@ -86,6 +86,8 @@ ximpel.MediaPlayer = function( player, mediaModel ){
 };
 ximpel.MediaPlayer.prototype.MEDIA_PLAYER_UPDATE_INTERVAL = 50; 
 ximpel.MediaPlayer.prototype.EVENT_MEDIA_PLAYER_END = 'ended';
+ximpel.MediaPlayer.prototype.EVENT_IFRAME_OPEN = 'iframe_open';
+ximpel.MediaPlayer.prototype.EVENT_IFRAME_CLOSE = 'iframe_close';
 ximpel.MediaPlayer.prototype.STATE_PLAYING = 'state_mp_playing';
 ximpel.MediaPlayer.prototype.STATE_PAUSED = 'state_mp_paused';
 ximpel.MediaPlayer.prototype.STATE_STOPPED = 'state_mp_stopped';
@@ -366,8 +368,41 @@ ximpel.MediaPlayer.prototype.handleOverlayClick = function( overlayModel, overla
 
 	// Determine the leadsTo value for the overlay that was clicked.
 	var leadsTo = this.player.determineLeadsTo( overlayModel.leadsToList );
+
 	if( leadsTo ){
-		this.player.goTo( leadsTo ); // starts playing the subject specified in the leadsTo
+		// Check if URL is set to be displayed in iframe
+		var urlAttr = 'url:';
+		if (leadsTo.toLowerCase().indexOf(urlAttr) === 0){
+			// Re-attach overlay click handler if playing; otherwise it already has been attached
+			if( this.isPlaying() ){
+				this.player.pause();
+				overlayView.onOneClick( this.handleOverlayClick.bind(this, overlayModel, overlayView ) );
+			}
+
+			// Generate iframe with close button and inject into DOM
+			var url = leadsTo.substr(urlAttr.length);
+			$player = this.player;
+			$urlDisplay = $('<div class="urlDisplay"></div>');
+
+			$closeButton = $('<img class="closeButton" src="ximpel/images/close_button.png"/>')
+				.one('click', function(){
+					this.pubSub.publish( this.EVENT_IFRAME_CLOSE, url );
+					$urlDisplay.remove();
+					if( $player.isPaused() ){
+						$player.resume();
+					}
+				}.bind(this));
+
+			$urlDisplay.append( $('<iframe src="' + url + '"></iframe>') )
+				.append( $closeButton )
+				.appendTo( this.player.getPlayerElement() );
+
+			this.pubSub.publish( this.EVENT_IFRAME_OPEN, url );
+
+		} else{
+			// start playing the subject specified in the leadsTo
+			this.player.goTo( leadsTo );
+		}
 	}
 }
 
@@ -539,6 +574,11 @@ ximpel.MediaPlayer.prototype.destroyPlayingOverlays = function(){
 ximpel.MediaPlayer.prototype.getOverlaysSortedByStartTime = function( overlays ){
 	// overlays.slice() creates a copy of the overlays array and then sort() sorts them by start time.
 	var overlaysSorted = overlays.slice().sort( function( overlay1, overlay2 ){
+		if (overlay1.startTime === overlay2.startTime) {
+			// Some browser implementations of Array.sort are non-stable, so
+			// compare the indexes to retain the current order (stable sort)
+			return overlay1.index - overlay2.index;
+		}
 		return overlay1.startTime - overlay2.startTime;
 	} );
 	

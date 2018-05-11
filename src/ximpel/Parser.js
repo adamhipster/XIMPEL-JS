@@ -189,7 +189,23 @@ ximpel.Parser.prototype.processSubjectNode = function( playlistModel, domElement
 			var leadsToModel = new ximpel.LeadsToModel();
 			leadsToModel.subject = attributeValue;
 			subjectModel.leadsToList.push( leadsToModel );
-		} else{
+		} else if( attributeName === 'swipeLeftTo' ){
+			var leadsToModel = new ximpel.LeadsToModel();
+			leadsToModel.subject = attributeValue;
+			subjectModel.swipeTo.swipeleft = leadsToModel;
+		} else if( attributeName === 'swipeRightTo' ){
+			var leadsToModel = new ximpel.LeadsToModel();
+			leadsToModel.subject = attributeValue;
+			subjectModel.swipeTo.swiperight = leadsToModel;
+		} else if( attributeName === 'swipeUpTo' ){
+			var leadsToModel = new ximpel.LeadsToModel();
+			leadsToModel.subject = attributeValue;
+			subjectModel.swipeTo.swipeup = leadsToModel;
+		} else if( attributeName === 'swipeDownTo' ){
+			var leadsToModel = new ximpel.LeadsToModel();
+			leadsToModel.subject = attributeValue;
+			subjectModel.swipeTo.swipedown = leadsToModel;
+		}  else{
 			ximpel.warn('Parser.processSubjectNode(): Invalid attribute ignored! Attribute \''+attributeName+'\' on element <'+info.tagName+'> is not supported. Make sure you spelled the attribute name correctly.');
 		}
 	}
@@ -334,7 +350,7 @@ ximpel.Parser.prototype.processMediaTypeNode = function( playlistModel, domEleme
 		var childName = child.nodeName;
 
 		if( childName === 'overlay' ){
-			mediaModel.overlays.push( this.processOverlayNode( playlistModel, child ) );
+			mediaModel.overlays.push( this.processOverlayNode( playlistModel, child, i ) );
 		} else if( childName === 'score' || childName === 'variable' ){
 			var variableModifier = this.processVariableNode( playlistModel, child );
 			mediaModel.variableModifiers.push( variableModifier );
@@ -627,10 +643,13 @@ ximpel.Parser.prototype.processDescriptionNode = function( playlistModel, domEle
 
 
 // Process the <overlay> node. The result is an OverlayModel object.
-ximpel.Parser.prototype.processOverlayNode = function( playlistModel, domElement ){
+ximpel.Parser.prototype.processOverlayNode = function( playlistModel, domElement, index ){
 	// Get some info about the current domElement (like its parent, its children, etc)
 	var info = this.getDomElementInfo( domElement );
 	var overlayModel = new ximpel.OverlayModel();
+
+	// Store index for stable sorting
+	overlayModel.index = index;
 
 	// Process and store the attributes of the <overlay> element.
 	for( var i=0; i<info.nrOfAttributes; i++ ){
@@ -732,6 +751,10 @@ ximpel.Parser.prototype.processConfigNode = function( domElement ){
 			configModel.mediaDirectory = $.trim(child.textContent);
 		} else if( childName === 'showScore' ){
 			configModel.showScore = ( $.trim(child.textContent).toLowerCase() === 'true');
+		} else if( childName === 'minimumSwipeVelocity' ){
+			configModel.minimumSwipeVelocity = parseFloat(child.textContent);
+		} else if( childName === 'minimumSwipeTranslation' ){
+			configModel.minimumSwipeTranslation = parseFloat(child.textContent)
 		}
 		else{
 			ximpel.warn('Parser.processConfigNode(): Invalid child ignored! Element <'+info.tagName+'> has child <'+childName+'>.This child element is not allowed on <'+info.tagName+'>.');
