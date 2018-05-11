@@ -17,13 +17,44 @@ ximpel.Analytics.prototype.addSubject = function(subject){
 }
 
 ximpel.Analytics.prototype.sendLastSubjectToDatabase = function(subject){
-  $.post('http://localhost:3333/savetodatabase', {subject: subject});
+  console.log('sendLastSubjectToDatabase');
+  console.log(subject);
+  $.ajax({
+    method: "POST",
+    url: "http://localhost:3333/savetodatabase",
+    data: {subject: subject},
+    xhrFields: { withCredentials: true },
+    crossDomain: true,
+    success: function(data){
+      console.log('savetodatabase succes', JSON.stringify(data));
+    },
+    error: function( jqXHR, textStatus, errorThrown ){
+      console.log('savetodatabase fail', jqXHR, textStatus, errorThrown);
+    }
+  })
 }
 
 //while it captures x,y coordinates for XIMPEL. It is not aware of what
 //it clicks on. It could become aware of the HTML5 thing it clicks on
 //but not of the XIMPEL xml tags itself.
-ximpel.Analytics.prototype.initializeAnalyticsEventHandlers = function(){
+ximpel.Analytics.prototype.initialize = function(){
+  //initialize the XIMPEL session on the serve
+  console.log('analytics init');
+  $.ajax({
+    method: "POST",
+    url: "http://localhost:3333/beginximpelsession",
+    data: {dummy: "dummy"},
+    xhrFields: { withCredentials: true },
+    crossDomain: true,
+    success: function(data){
+      console.log('beginximpelsession succes', JSON.stringify(data));
+    },
+    error: function( jqXHR, textStatus, errorThrown ){
+      console.log('beginximpelsession fail', jqXHR, textStatus, errorThrown);
+    }
+  })
+
+  //initialize event handlers
   document.getElementsByClassName('ximpelWrapper')[0].addEventListener('mousemove', this.addMouseMove.bind(this));
   document.getElementsByClassName('ximpelWrapper')[0].addEventListener('click', this.addMouseClick.bind(this));
 }

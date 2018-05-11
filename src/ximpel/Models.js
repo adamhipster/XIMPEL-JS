@@ -86,10 +86,11 @@ ximpel.SequenceModel.prototype.add = function( item ){
 // ParallelModel
 // ############################################################################
 ximpel.ParallelModel = function(){
-	// The list of a ParallelModel may contain MediaModels or SequenceModels
+	// The list of a ParallelModel may contain SequenceModels
 	this.list = [];
 }
 ximpel.ParallelModel.prototype = new ximpel.Model();
+// No order needs to be specified, because without it, it already plays everything in parallel
 ximpel.ParallelModel.prototype.add = function( item ){
 	this.list.push( item );
 }

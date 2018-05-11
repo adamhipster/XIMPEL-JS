@@ -80,7 +80,7 @@ ximpel.Player = function( playerElement, playlistModel, configModel ){
 
 	//Initialize analytics library and register event handlers for analytics library
 	this.analytics = new ximpel.Analytics();
-	this.analytics.initializeAnalyticsEventHandlers();
+	this.analytics.initialize();
 
 	// Do some stuff to initialize the player to make it ready for use.
 	this.init();
