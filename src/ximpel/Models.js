@@ -214,7 +214,7 @@ ximpel.VariableModifierModel.prototype = new ximpel.Model();
 // These specify some constants that define the operations that can be used in a variable modifier.
 ximpel.VariableModifierModel.prototype.OPERATION_SET = 'set';
 ximpel.VariableModifierModel.prototype.OPERATION_ADD = 'add';
-ximpel.VariableModifierModel.prototype.OPERATION_SUBSTRACT = 'substract';
+ximpel.VariableModifierModel.prototype.OPERATION_SUBSTRACT = 'subtract';
 ximpel.VariableModifierModel.prototype.OPERATION_MULTIPLY = 'multiply';
 ximpel.VariableModifierModel.prototype.OPERATION_DIVIDE = 'divide';
 ximpel.VariableModifierModel.prototype.OPERATION_POWER = 'power';

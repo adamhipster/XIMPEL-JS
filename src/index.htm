@@ -89,6 +89,19 @@
 					//player.play();
 					// do something...
 					// player.startEmotionDetection();
+
+					// Init score display
+					var showScore = player.getConfigProperty('showScore');
+					
+					$('.scoreContainer').show();
+					$('#test').text(0);
+					$('#yolo').text(0);
+					// Add more score initializations here
+				
+					player.addEventHandler( 'variable_updated', function( variableId ){
+						console.log('variable updated', variableId);
+						$('#' + variableId).text( player.getVariable( variableId ) );
+					});
 				}.bind(this));
 			});
 
@@ -98,7 +111,13 @@
 	</head>
 
 	<body>
-		<div id="ximpel1"></div>
+		<div id="ximpel1">
+			<div class="scoreContainer">
+				<div class="score">Score Test: <span id="test"></span></div>
+				<div class="score">Score Yolo: <span id="yolo"></span></div>
+				<!-- Add more score containers here -->
+			</div>
+		</div>
 
 		<!-- <div id="emotion_content">
       <h2>Emotion detection</h2>

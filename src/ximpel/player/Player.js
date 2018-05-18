@@ -414,7 +414,7 @@ ximpel.Player.prototype.evaluateCondition = function( conditionModel ){
 
 	// First we retrieve an array of all the templated variable names. Templated variables look like this {{variableName1}}
 	// So for the string: "{{x}}+{{x}}=={{y}}" we get an array: ['x','x','y']
-    var regex = /\{\{(\w+)\}\}/g;
+  var regex = /\{\{(\w+)\}\}/g;
 	var variableNames = [];
 	var variableNamesTemplated = [];
     while( match = regex.exec(condition) ){
