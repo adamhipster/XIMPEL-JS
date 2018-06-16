@@ -43,10 +43,10 @@
 		<script type="text/javascript" src="ximpel/media_types/Audio.js"></script>
 		<script type="text/javascript" src="ximpel/media_types/YouTube.js"></script>
 		<script type="text/javascript" src="ximpel/media_types/Message.js"></script>
-		<script type="text/javascript" src="ximpel/media_types/Terminal.js"></script>
+		<script type="text/javascript" src="ximpel/media_types/Iframe.js"></script>
+		<script type="text/javascript" src="ximpel/media_types/Terminal.js"></script> <!-- Only enable this if you use it. Otherwise it throws socket-io errors. -->
 		<script type="text/javascript" src="ximpel/media_types/Filler.js"></script>
 		<script type="text/javascript" src="ximpel/media_types/TextBlock.js"></script>
-		<!-- to add: Timeout.js een mediatype dat time skipped -->
 
 		<!-- Emotion Tracking -->
 		<script src="vendor/clmtrackr-dev/examples/js/libs/utils.js"></script> <!-- Helper functions -->
@@ -68,7 +68,7 @@
 				//   the width/height of the app and the element to use.
 				var myApp = new ximpel.XimpelApp(
 					'stefansapp',
-					'what_is_a_file.xml', 
+					'shooter.xml',
 					'config.xml', 
 					{'appElement': 'ximpel1',
 					 /*'parentElement': $( document.body ),*/
@@ -94,8 +94,8 @@
 					var showScore = player.getConfigProperty('showScore');
 					
 					$('.scoreContainer').show();
-					$('#test').text(0);
-					$('#yolo').text(0);
+					$('#kills').text(0);
+					$('#deaths').text(0);
 					// Add more score initializations here
 				
 					player.addEventHandler( 'variable_updated', function( variableId ){
@@ -113,8 +113,8 @@
 	<body>
 		<div id="ximpel1">
 			<div class="scoreContainer">
-				<div class="score">Score Test: <span id="test"></span></div>
-				<div class="score">Score Yolo: <span id="yolo"></span></div>
+				<div class="score">Kills: <span id="kills"></span></div>
+				<div class="score">Deaths: <span id="deaths"></span></div>
 				<!-- Add more score containers here -->
 			</div>
 		</div>

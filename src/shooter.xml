@@ -1,0 +1,101 @@
+<ximpel>
+<config>
+    <enableControls>true</enableControls>
+    <controlsDisplayMethod>overlay</controlsDisplayMethod>
+</config>
+<playlist>
+    <score id="kills" operation="set" value="0" />
+    <score id="deaths" operation="set" value="0" />
+
+    <subject id="level1a" leadsTo="death">
+        <leadsTo subject="level2a" condition="{{kills}} > 1" />
+        <parallel>
+            <image src="assets/background.png" duration="5"></image>
+            <sequence>
+                <filler duration="2" />
+                <image src="assets/enemy.png" duration="4" x="100px" y="200px" width="200px" height="600px">
+                    <overlay shape="oval" alpha="0" hoverAlpha="0.2" width="200px" height="600px" x="100px" y="200px">
+                        <score id="kills" operation="add" value="1" />
+                    </overlay>
+                </image>
+            </sequence>
+            <sequence>
+                <filler duration="1" />
+                <image src="assets/enemy.png" duration="4" x="500px" y="400px" width="100px" height="300px">
+                    <overlay shape="oval" alpha="0" hoverAlpha="0.2" width="100px" height="300px" x="500px" y="400px">
+                        <score id="kills" operation="add" value="1" />
+                    </overlay>
+                </image>
+                <filler duration="1" />
+            </sequence>
+        </parallel>
+    </subject>
+
+    <subject id="level1c" leadsTo="death">
+        <parallel>
+            <image src="assets/background.png" duration="5"></image>
+            <sequence>
+                <filler duration="2" />
+                <image src="assets/enemy.png" duration="1" x="900px" y="400px" width="50px" height="150px">
+                    <overlay leadsTo="level1d" shape="oval" alpha="0" hoverAlpha="0.2" width="50px" height="150px" x="900px" y="400px">
+                        <score id="kills" operation="add" value="1" />
+                    </overlay>
+                </image>
+                <filler duration="1" />
+            </sequence>
+        </parallel>
+    </subject>
+
+    <subject id="level1d" leadsTo="death">
+        <parallel>
+            <image src="assets/background.png" duration="5"></image>
+            <sequence>
+                <filler duration="2" />
+                <image src="assets/enemy.png" duration="1" x="1200px" y="800px" width="25px" height="75px">
+                    <overlay leadsTo="level2a" shape="oval" alpha="0" hoverAlpha="0.2" width="25px" height="75px" x="1200px" y="800px">
+                        <score id="kills" operation="add" value="1" />
+                    </overlay>
+                </image>
+                <filler duration="1" />
+            </sequence>
+        </parallel>
+    </subject>
+
+    <subject id="level2a" leadsTo="death">
+        <media>
+            <image src="assets/grumpy_cat_mirror.gif" duration="4.5" x="250px" y="200px" width="750px" height="750px">
+                <overlay leadsTo="level2b" shape="oval" alpha="0" hoverAlpha="0.2" width="750px" height="750px" x="250px" y="200px">
+                    <score id="kills" operation="add" value="1" />
+                </overlay>
+            </image>
+        </media>
+    </subject>
+
+    <subject id="level2b" leadsTo="death">
+        <media>
+            <image src="assets/grumpy_cat.gif" duration="0.5" x="1000px" y="200px" width="750px" height="750px">
+                <overlay leadsTo="end" shape="oval" alpha="0" hoverAlpha="0.2" width="750px" height="750px" x="1000px" y="200px">
+                    <score id="kills" operation="add" value="1" />
+                </overlay>
+            </image>
+        </media>
+    </subject>
+
+    <subject id="death">
+        <score id="deaths" operation="add" value="1" />
+        <media>
+            <message text="You Died">
+                <overlay leadsTo="level1a" alpha="0" hoverAlpha="0.2" textColor="#fff" fontSize="6em" width="1980px" height="1080px" x="0px" y="0px" text="Try again?"/>
+            </message>
+        </media>
+    </subject>
+        
+    <subject id="end">
+        <media>
+            <message text="The End" />
+        </media>
+    </subject>
+
+
+</playlist>
+</ximpel>

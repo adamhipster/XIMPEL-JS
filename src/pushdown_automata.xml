@@ -1,0 +1,21 @@
+<!-- input alphabet: 0 and 1 -->
+
+<!-- Technological artefact: q0 is meant to initialize the stack -->
+<!-- It switches immediately to q1 -->
+<subject id="q0">
+  <score id="stack1" operation="" value="1" />
+  <leadsTo subject="q1" condition="{{stack1}} > 0" />
+</subject>
+
+<subject id="q1">
+  <overlay text="0" leadsTo="q2">
+    <score id="stack1" operation="multiply" value="2" />
+  </overlay>
+  <overlay leadsTo="q3" />
+</subject>
+
+<subject id="q2">
+</subject>
+
+<subject id="q3">
+</subject>

@@ -174,7 +174,16 @@ ximpel.Player.prototype.playSubject = function( subjectModel ){
 	// one or more media models and parrallel models which in turn may contain sequence models again. This playback complexity is all handled by
 	// the sequence player so we do not need to worry about that here, we just need to tell the sequence player to start playing the sequence
 	// of our subject.
-	var sequenceModel = subjectModel.sequenceModel;
+	var sequenceModel = undefined;
+	if(subjectModel.sequenceModel){
+		sequenceModel = subjectModel.sequenceModel;
+	}
+	else if(subjectModel.parallelModel){
+		// If subjectModel, then pretend the parallelModel has a SequenceModel as parent.
+		// We need to keep the illusion that the ximpel player has only one SequenceModel.
+		sequenceModel = new ximpel.SequenceModel();
+		sequenceModel.add(subjectModel.parallelModel);
+	}
 
 	// In the playlist you can define variables/scores to be changed when a subject starts. When you do this
 	// the parser will add a variableModifier object and store it in a list of variableModifiers for that subject.
@@ -489,8 +498,6 @@ ximpel.Player.prototype.handleSequencePlayerEnd = function(){
 	// Publish the player end event. Any (third party) code that registered a handler for this event using
 	// addEventHandler() will have its handler called.
 	this.pubSub.publish( this.EVENT_PLAYER_END );
-
-	//add analytics?
 }
 
 
